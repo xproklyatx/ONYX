@@ -1,7 +1,7 @@
 #include "DX.hpp"
 #include <Console.hpp>
 #include <sstream>
-DX::DX()
+DX::DX() : cbData({}), rotationAngle(0.0f)
 {
 }
 DX::~DX()

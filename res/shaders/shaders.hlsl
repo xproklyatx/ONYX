@@ -1,23 +1,39 @@
-//Inputs for Pixel shader that are recieved from vertex buffer
-struct PSInput
+// res/shaders/shaders.hlsl
+struct VertexInput
 {
-    float4 position : SV_POSITION;
+    float3 pos : POSITION;
     float4 color : COLOR;
 };
-//vertex shader
-//setting the results of the vertex shader as our pixel shader input
-PSInput VSMain(float4 position : POSITION, float4 color : COLOR)
+
+struct VertexOutput
 {
-    PSInput result;
+    float4 pos : SV_POSITION;
+    float4 color : COLOR;
+};
 
-    result.position = position;
-    result.color = color;
+// Constant buffer
+cbuffer ConstantBuffer : register(b0)
+{
+    float4x4 model;
+    float4x4 view;
+    float4x4 proj;
+};
 
-    return result;
+VertexOutput VSMain(VertexInput input)
+{
+    VertexOutput output;
+    
+    // Transform: Model -> View -> Projection
+    float4 worldPos = mul(float4(input.pos, 1.0f), model);
+    float4 viewPos = mul(worldPos, view);
+    output.pos = mul(viewPos, proj);
+    
+    output.color = input.color;
+    
+    return output;
 }
-//pixel shader
-//giving it the pixel shader input
-float4 PSMain(PSInput input) : SV_TARGET
+
+float4 PSMain(VertexOutput input) : SV_TARGET
 {
     return input.color;
 }

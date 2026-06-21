@@ -73,6 +73,7 @@ void DX::LoadPipeline()
         ThrowIfFailed(device->CreateDescriptorHeap(&rtvHeapDesc, IID_PPV_ARGS(&rtvHeap)));
         rtvDescriptorSize = device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
     }
+    CreateCUSHeap();
     {
         CD3DX12_CPU_DESCRIPTOR_HANDLE rtvHandle(rtvHeap->GetCPUDescriptorHandleForHeapStart());
         for (UINT n = 0; n < frameCount; n++)
@@ -82,6 +83,7 @@ void DX::LoadPipeline()
             rtvHandle.Offset(1, rtvDescriptorSize);
         }
     }
+    CreateDepthStencilView();
     {
         viewPort = {0.0f, 0.0f, static_cast<float>(SCR_WIDTH), static_cast<float>(SCR_HEIGHT), 0.0f, 1.0f};
         scissorRect = {0, 0, static_cast<LONG>(SCR_WIDTH), static_cast<LONG>(SCR_HEIGHT)};

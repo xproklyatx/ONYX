@@ -29,12 +29,23 @@ class DX
     ComPtr<ID3D12RootSignature> rootSignature;
     ComPtr<ID3D12DescriptorHeap> rtvHeap;
     ComPtr<ID3D12PipelineState> pipelineState;
+    ComPtr<ID3D12Resource> depthStencilBuffer;
+    ComPtr<ID3D12DescriptorHeap> dsvHeap;
+    ComPtr<ID3D12DescriptorHeap> cusHeap;
+    ComPtr<ID3D12Resource> constantBuffer;
+    UINT8* pCbvDataBegin;
+    UINT dsvDescriptorSize;
+    D3D12_CLEAR_VALUE depthStencilClearValue;
+    BOOL useDepthStencil = TRUE;
 #ifndef NDEBUG
     Microsoft::WRL::ComPtr<ID3D12InfoQueue> infoQueue;
 #endif
     UINT rtvDescriptorSize;
     ComPtr<ID3D12Resource> vertexBuffer;
     D3D12_VERTEX_BUFFER_VIEW vertexBufferView;
+    ComPtr<ID3D12Resource> indexBuffer;
+    D3D12_INDEX_BUFFER_VIEW indexBufferView;
+    UINT indexCount;
     UINT frameIndex;
     ComPtr<ID3D12Fence> fence;
     HANDLE fenceEvent;
@@ -47,11 +58,23 @@ class DX
         DirectX::XMFLOAT3 pos;
         DirectX::XMFLOAT4 color;
     };
+    struct alignas(256) SceneConstantBuffer
+    {
+        DirectX::XMMATRIX model;
+        DirectX::XMMATRIX view;
+        DirectX::XMMATRIX proj;
+    };
+    static_assert((sizeof(SceneConstantBuffer) % 256) == 0, "Constant Buffer size must be 256-byte aligned");
+    SceneConstantBuffer cbData;
+    float rotationAngle;
     void LoadPipeline();
     void LoadAssets();
     void PopulateCommandList();
     void Update();
     void WaitForPreviousFrame();
+    void CreateDepthStencilView();
+    void CreateCUSHeap();
+    void CreateCB();
 #ifndef NDEBUG
     void FlushDebugMessages();
 #endif
