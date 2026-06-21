@@ -1,8 +1,3 @@
-# ============================================
-# res/shaders/CMakeLists.txt (Alternative)
-# ============================================
-
-# 1. Call the batch script to compile shaders
 add_custom_target(ONYX_Shaders ALL
     COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/Compile.bat
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
@@ -10,12 +5,10 @@ add_custom_target(ONYX_Shaders ALL
     VERBATIM
 )
 
-# 2. Make the main target depend on shaders
 if(TARGET ONYX)
     add_dependencies(ONYX ONYX_Shaders)
 endif()
 
-# 3. Create a copy command that runs after shaders are compiled
 if(TARGET ONYX)
     # Get the output directory for the executable
     get_target_property(ONYX_OUTPUT_DIR ONYX RUNTIME_OUTPUT_DIRECTORY)

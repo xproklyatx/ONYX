@@ -10,7 +10,6 @@ set SCRIPT_DIR=%~dp0
 set OUTPUT_DIR=%SCRIPT_DIR%
 set DXC=dxc.exe
 
-:: Check if DXC is available
 where %DXC% >nul 2>&1
 if %errorlevel% neq 0 (
     echo [ERROR] dxc.exe not found! Install DirectX Shader Compiler.
@@ -28,7 +27,6 @@ set TOTAL_FILES=0
 set FAILED_COUNT=0
 set SKIPPED_COUNT=0
 
-:: Loop through all .hlsl files in the directory
 for %%f in ("%SCRIPT_DIR%*.hlsl") do (
     set /a TOTAL_FILES+=1
     set FILE_NAME=%%~nf
