@@ -1,0 +1,15 @@
+# ninja log v7
+22	1633	8037581120376053	CMakeFiles/ONYX.dir/vendor/stb/stb_image.c.obj	912ba68c872b96b9
+27	2426	8037581120426073	CMakeFiles/ONYX.dir/src/Arena.cpp.obj	140481d5a85107b6
+40	4195	8037581120556091	CMakeFiles/ONYX.dir/src/DX_LoadAssets.cpp.obj	1efd01eef44aca51
+36	4527	8037581120516074	CMakeFiles/ONYX.dir/src/DX_Debug.cpp.obj	8a8634c73fff2b0c
+32	4574	8037581120476067	CMakeFiles/ONYX.dir/src/DX.cpp.obj	78a254e8afdd9f2
+46	4647	8037581120616135	CMakeFiles/ONYX.dir/src/DX_LoadPipeline.cpp.obj	3c90e43c0f40d856
+4527	5917	8037581165430404	CMakeFiles/ONYX.dir/src/Input.cpp.obj	8a84fc1d437050ac
+1637	6012	8037581136523165	CMakeFiles/ONYX.dir/src/DX_PopulateCommandLits.cpp.obj	4ca10524d8a91516
+2429	6468	8037581144441400	CMakeFiles/ONYX.dir/src/DX_Update.cpp.obj	db148ac59059776c
+5917	6573	8037581179326548	CMakeFiles/ONYX.dir/src/Win32Platform.cpp.obj	ab5f7ebe88b66c0b
+4196	7583	8037581162120314	CMakeFiles/ONYX.dir/src/DX_WaitForPreviousFrame.cpp.obj	fcfd875f90773ea4
+4648	7792	8037581166631038	CMakeFiles/ONYX.dir/src/Renderer.cpp.obj	6cee5ff134e5c0af
+4574	7970	8037581165890455	CMakeFiles/ONYX.dir/src/Main.cpp.obj	458e3a5f9466fb4d
+7970	8182	8037581199857272	ONYX.exe	68d4dc9420aea10f

@@ -429,6 +429,7 @@ FodyWeavers.xsd
 *.sln.iml
 out/*
 ./CMakeSettings.json
+.clangd
 ### VisualStudio Patch ###
 # Additional files built by Visual Studio
 

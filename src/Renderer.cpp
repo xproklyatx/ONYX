@@ -2,15 +2,14 @@
 #include "Renderer.hpp"
 Renderer::Renderer()
 {
-
 }
 Renderer::~Renderer()
 {
 }
 void Renderer::Run()
 {
-	Init();
-	MainLoop();
+    Init();
+    MainLoop();
 }
 void Renderer::Init()
 {
@@ -18,10 +17,10 @@ void Renderer::Init()
 }
 void Renderer::MainLoop()
 {
-	Win32Platform& win32Instance = Win32Platform::GetInstance();
-	while (!win32Instance.CheckClose())
-	{
-		win32Instance.PollEvents();
-		dx.Render();
-	}
+    Win32Platform& win32Instance = Win32Platform::GetInstance();
+    while (!win32Instance.CheckClose())
+    {
+        win32Instance.PollEvents();
+        dx.Render();
+    }
 }

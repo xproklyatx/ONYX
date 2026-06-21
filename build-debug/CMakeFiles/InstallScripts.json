@@ -1,0 +1,9 @@
+{
+	"InstallScripts" : 
+	[
+		"C:/MyStuff/Programming/mine/ONYX/build-debug/cmake_install.cmake",
+		"C:/MyStuff/Programming/mine/ONYX/build-debug/vendor/cmake_install.cmake",
+		"C:/MyStuff/Programming/mine/ONYX/build-debug/src/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

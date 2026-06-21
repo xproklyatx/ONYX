@@ -1,13 +1,14 @@
-#pragma once 
+#pragma once
 #include "DX.hpp"
 class Renderer
 {
-public:
-	Renderer();
-	~Renderer();
-	void Run();
-private:
+  public:
+    Renderer();
+    ~Renderer();
+    void Run();
+
+  private:
     DX dx;
-	void Init();
-	void MainLoop();
+    void Init();
+    void MainLoop();
 };

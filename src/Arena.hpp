@@ -1,5 +1,5 @@
 #pragma once
-#include <cstdint>   
+#include <cstdint>
 #include <cstring>
 #include <array>
 #define KB(x) (x * 1024)
@@ -27,8 +27,7 @@ class ArenaManager
 {
   public:
     static void Initialize();
-    template <typename T> 
-    static T* Allocate(size_t index)
+    template <typename T> static T* Allocate(size_t index)
     {
         size_t alignment = alignof(T);
         size_t size = sizeof(T);
@@ -38,7 +37,8 @@ class ArenaManager
         uintptr_t aligned = AlignUp(current, alignment);
         size_t padding = static_cast<size_t>(aligned - current);
         size_t new_offset = arenas[index]->offset + padding + size;
-        if (new_offset > (arenas[index]->reserved - (reinterpret_cast<uint8_t*>(arenas[index]->buffer) - reinterpret_cast<uint8_t*>(arenas[index]->base))))
+        if (new_offset > (arenas[index]->reserved - (reinterpret_cast<uint8_t*>(arenas[index]->buffer) -
+                                                     reinterpret_cast<uint8_t*>(arenas[index]->base))))
             return nullptr;
         if (!ArenaEnsureCapacity(index, new_offset))
             return nullptr;
@@ -51,6 +51,7 @@ class ArenaManager
     static void ResetArena(size_t index);
     static void FreeArena(size_t index);
     static size_t ArenaGetRemaining(size_t index);
+
   private:
     static void* OsAlloc(void* address, size_t size);
     static void* OsReserve(size_t size);
@@ -197,4 +198,4 @@ int ArenaManager::ArenaEnsureCapacity(size_t index, size_t required_offset)
     arenas[index]->committed = total_required;
     return 1;
 }
-#endif 
+#endif

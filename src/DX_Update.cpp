@@ -1,6 +1,5 @@
 #include "DX.hpp"
 void DX::Update()
 {
-	//empty for this program
+    // empty for this program
 }
-
