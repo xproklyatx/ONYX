@@ -1,5 +1,4 @@
 #include "DX.hpp"
-#include "Console.hpp"
 void DX::PopulateCommandList()
 {
     ThrowIfFailed(commandList->Reset(commandAllocator.Get(), pipelineState.Get()));
