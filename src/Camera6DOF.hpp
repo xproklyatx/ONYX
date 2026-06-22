@@ -25,6 +25,13 @@ class Camera6DOF : public ICam
     void LookAt(const DirectX::XMFLOAT3& target);
     void Reset();
 
+    void SetFocus(bool focused);
+    bool IsFocused() const
+    {
+        return bFocused;
+    }
+    void ToggleFocus();
+
     DirectX::XMFLOAT3 GetPosition() const
     {
         return position;
@@ -64,7 +71,7 @@ class Camera6DOF : public ICam
     }
     void SetFov(float fov)
     {
-        fov = std::clamp(fov, 1.0f, 120.0f);
+        this->fov = std::clamp(fov, 1.0f, 120.0f);
     }
 
   private:
@@ -87,8 +94,17 @@ class Camera6DOF : public ICam
     float mouseSensitivity = 0.002f;
     float zoomSpeed = 2.0f;
 
+    bool bFocused = false;
     bool bRightMouseDown = false;
     POINT lastMousePos = {0, 0};
+    POINT centerPos = {0, 0};
+
+    bool bMoveForward = false;
+    bool bMoveBackward = false;
+    bool bMoveLeft = false;
+    bool bMoveRight = false;
+    bool bMoveUp = false;
+    bool bMoveDown = false;
 
     mutable bool bViewDirty = true;
     mutable DirectX::XMMATRIX viewMatrix;

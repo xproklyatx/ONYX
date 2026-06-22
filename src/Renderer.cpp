@@ -18,6 +18,7 @@ void Renderer::Init()
 
     Input::Initialize();
     ICam::Set(&camera);
+    camera.SetFocus(true);
     dx.Init();
 }
 void Renderer::MainLoop()

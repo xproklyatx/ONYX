@@ -9,18 +9,78 @@ Camera6DOF::Camera6DOF()
     pitch = 0.0f;
     yaw = 0.0f;
     fov = 45.0f;
+    bFocused = false;
     UpdateVectors();
 }
 
 void Camera6DOF::Update()
 {
+
+    if (Input::IsKeyPressed(VK_ESCAPE))
+    {
+        ToggleFocus();
+        return;
+    }
+
+    if (!bFocused && (Input::IsKeyPressed(VK_LBUTTON) || Input::IsKeyPressed(VK_RBUTTON)))
+    {
+        SetFocus(true);
+        return;
+    }
+
     ProcessInput();
     UpdateVectors();
+}
+
+void Camera6DOF::SetFocus(bool focused)
+{
+    bFocused = focused;
+    HWND hWnd = GetActiveWindow();
+
+    if (bFocused)
+    {
+        ShowCursor(FALSE);
+
+        RECT rect;
+        GetClientRect(hWnd, &rect);
+        centerPos.x = (rect.left + rect.right) / 2;
+        centerPos.y = (rect.top + rect.bottom) / 2;
+
+        POINT screenCenter = centerPos;
+        ClientToScreen(hWnd, &screenCenter);
+        SetCursorPos(screenCenter.x, screenCenter.y);
+        lastMousePos = centerPos;
+
+        POINT topLeft = {rect.left, rect.top};
+        POINT bottomRight = {rect.right, rect.bottom};
+        ClientToScreen(hWnd, &topLeft);
+        ClientToScreen(hWnd, &bottomRight);
+
+        RECT screenRect;
+        screenRect.left = topLeft.x;
+        screenRect.top = topLeft.y;
+        screenRect.right = bottomRight.x;
+        screenRect.bottom = bottomRight.y;
+        ClipCursor(&screenRect);
+    }
+    else
+    {
+        ShowCursor(TRUE);
+        ClipCursor(nullptr);
+    }
+}
+
+void Camera6DOF::ToggleFocus()
+{
+    SetFocus(!bFocused);
 }
 
 void Camera6DOF::ProcessInput()
 {
     float dt = DeltaTime::GetDelta();
+
+    if (!bFocused)
+        return;
 
     if (Input::IsKeyDown('W') || Input::IsKeyDown('w'))
     {
@@ -74,6 +134,27 @@ void Camera6DOF::ProcessInput()
     }
 }
 
+void Camera6DOF::OnMouseMove(int x, int y)
+{
+    if (!bFocused)
+        return;
+
+    int deltaX = x - centerPos.x;
+    int deltaY = y - centerPos.y;
+
+    if (deltaX != 0 || deltaY != 0)
+    {
+        pitch -= deltaY * mouseSensitivity;
+        yaw += deltaX * mouseSensitivity;
+        bViewDirty = true;
+
+        HWND hWnd = GetActiveWindow();
+        POINT screenCenter = centerPos;
+        ClientToScreen(hWnd, &screenCenter);
+        SetCursorPos(screenCenter.x, screenCenter.y);
+    }
+}
+
 void Camera6DOF::UpdateVectors()
 {
     pitch = std::clamp(pitch, -89.0f * 3.14159f / 180.0f, 89.0f * 3.14159f / 180.0f);
@@ -113,22 +194,6 @@ DirectX::XMMATRIX Camera6DOF::GetProjectionMatrix(float aspectRatio) const
     return DirectX::XMMatrixPerspectiveFovLH(DirectX::XMConvertToRadians(fov), aspectRatio, nearPlane, farPlane);
 }
 
-void Camera6DOF::OnMouseMove(int x, int y)
-{
-    if (!bRightMouseDown)
-        return;
-
-    int deltaX = x - lastMousePos.x;
-    int deltaY = y - lastMousePos.y;
-
-    pitch -= deltaY * mouseSensitivity;
-    yaw -= deltaX * mouseSensitivity;
-
-    lastMousePos.x = x;
-    lastMousePos.y = y;
-    bViewDirty = true;
-}
-
 void Camera6DOF::OnMouseWheel(int delta)
 {
     fov = std::clamp(fov - delta * zoomSpeed * 0.01f, 1.0f, 120.0f);
@@ -144,14 +209,10 @@ void Camera6DOF::OnKeyUp(WPARAM key)
 
 void Camera6DOF::OnRightMouseDown()
 {
-    bRightMouseDown = true;
-    GetCursorPos(&lastMousePos);
-    ScreenToClient(GetActiveWindow(), &lastMousePos);
 }
 
 void Camera6DOF::OnRightMouseUp()
 {
-    bRightMouseDown = false;
 }
 
 void Camera6DOF::SetPosition(float x, float y, float z)
@@ -195,5 +256,9 @@ void Camera6DOF::Reset()
     pitch = 0.0f;
     yaw = 0.0f;
     fov = 45.0f;
+    bFocused = false;
     bViewDirty = true;
+
+    ShowCursor(TRUE);
+    ClipCursor(nullptr);
 }
