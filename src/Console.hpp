@@ -1,6 +1,9 @@
 #pragma once
 #ifndef NDEBUG
 #define WIN32_LEAN_AND_MEAN
+#ifndef IDI_ICON1
+#define IDI_ICON1 101
+#endif
 #include <windows.h>
 #include <iostream>
 class Console
@@ -17,6 +20,10 @@ class Console
         FILE* pIn;
         freopen_s(&pIn, "CONIN$", "r", stdin);
         std::ios::sync_with_stdio();
+        HWND hwndConsole = GetConsoleWindow();
+        HICON hIcon = LoadIcon(GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_ICON1));
+        SendMessage(hwndConsole, WM_SETICON, ICON_BIG, (LPARAM)hIcon);
+        SendMessage(hwndConsole, WM_SETICON, ICON_SMALL, (LPARAM)hIcon);
     }
 
     static void PrintNormal(const char* printString)

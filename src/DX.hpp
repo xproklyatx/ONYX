@@ -6,6 +6,7 @@
 #include "d3dx12.h"
 #include <d3dcompiler.h>
 #include <DirectXMath.h>
+#include <vector>
 class DX
 {
   public:
@@ -20,6 +21,9 @@ class DX
   private:
     void ThrowIfFailed(HRESULT hr);
     static const UINT frameCount = 2;
+    static const UINT textureWidth = 256;
+    static const UINT textureHeight = 256;
+    static const UINT texturePixelSize = 4;
     ComPtr<IDXGISwapChain3> swapChain;
     ComPtr<ID3D12Device> device;
     ComPtr<ID3D12Resource> renderTargets[frameCount];
@@ -33,6 +37,7 @@ class DX
     ComPtr<ID3D12DescriptorHeap> dsvHeap;
     ComPtr<ID3D12DescriptorHeap> cusHeap;
     ComPtr<ID3D12Resource> constantBuffer;
+    ComPtr<ID3D12Resource> texture;
     UINT8* pCbvDataBegin;
     UINT dsvDescriptorSize;
     D3D12_CLEAR_VALUE depthStencilClearValue;
@@ -75,6 +80,7 @@ class DX
     void CreateDepthStencilView();
     void CreateCUSHeap();
     void CreateCB();
+    std::vector<UINT*> GenerateTextureData();
 #ifndef NDEBUG
     void FlushDebugMessages();
 #endif

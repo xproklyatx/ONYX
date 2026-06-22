@@ -5,3 +5,5 @@ C:/MyStuff/Programming/mine/ONYX/build-debug/vendor/CMakeFiles/edit_cache.dir
 C:/MyStuff/Programming/mine/ONYX/build-debug/vendor/CMakeFiles/rebuild_cache.dir
 C:/MyStuff/Programming/mine/ONYX/build-debug/src/CMakeFiles/edit_cache.dir
 C:/MyStuff/Programming/mine/ONYX/build-debug/src/CMakeFiles/rebuild_cache.dir
+C:/MyStuff/Programming/mine/ONYX/build-debug/res/CMakeFiles/edit_cache.dir
+C:/MyStuff/Programming/mine/ONYX/build-debug/res/CMakeFiles/rebuild_cache.dir

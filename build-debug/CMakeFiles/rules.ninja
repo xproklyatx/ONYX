@@ -32,6 +32,16 @@ rule CXX_COMPILER__ONYX_unscanned_Debug
 
 
 #############################################
+# Rule for compiling RC files.
+
+rule RC_COMPILER__ONYX_unscanned_Debug
+  depfile = $DEP_FILE
+  deps = gcc
+  command = ${LAUNCHER}${CODE_CHECK}"C:\Program Files\CMake\bin\cmake.exe" -E cmake_llvm_rc $in $out.pp "C:\Program Files\LLVM\bin\clang.exe" $DEFINES -DRC_INVOKED $INCLUDES $FLAGS -MD -MF $DEP_FILE -x c -E -- $in ++ "C:\Program Files\LLVM\bin\llvm-rc.exe" $DEFINES -I SOURCE_DIR $INCLUDES $FLAGS -MD -MF $DEP_FILE /fo $out $out.pp
+  description = Building RC object $out
+
+
+#############################################
 # Rule for linking CXX executable.
 
 rule CXX_EXECUTABLE_LINKER__ONYX_Debug

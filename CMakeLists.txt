@@ -11,6 +11,7 @@ set_target_properties(ONYX PROPERTIES
 )
 add_subdirectory(vendor)
 add_subdirectory(src)
+add_subdirectory(res)
 message("
 ==================================================
  ONYX ENGINE — Build Configuration

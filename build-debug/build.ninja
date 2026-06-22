@@ -225,6 +225,16 @@ build CMakeFiles/ONYX.dir/src/Win32Platform.cpp.obj: CXX_COMPILER__ONYX_unscanne
   TARGET_PDB = ONYX.pdb
   TARGET_SUPPORT_DIR = CMakeFiles\ONYX.dir
 
+build CMakeFiles/ONYX.dir/res/Resource.rc.res: RC_COMPILER__ONYX_unscanned_Debug C$:/MyStuff/Programming/mine/ONYX/res/Resource.rc || cmake_object_order_depends_target_ONYX
+  CONFIG = Debug
+  DEP_FILE = CMakeFiles\ONYX.dir\res\Resource.rc.res.d
+  INCLUDES = -I C:/MyStuff/Programming/mine/ONYX/vendor -I C:/MyStuff/Programming/mine/ONYX/vendor/directx -I C:/MyStuff/Programming/mine/ONYX/src
+  OBJECT_DIR = CMakeFiles\ONYX.dir
+  OBJECT_FILE_DIR = CMakeFiles\ONYX.dir\res
+  TARGET_COMPILE_PDB = CMakeFiles\ONYX.dir\
+  TARGET_PDB = ONYX.pdb
+  TARGET_SUPPORT_DIR = CMakeFiles\ONYX.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target ONYX
@@ -233,7 +243,7 @@ build CMakeFiles/ONYX.dir/src/Win32Platform.cpp.obj: CXX_COMPILER__ONYX_unscanne
 #############################################
 # Link the executable ONYX.exe
 
-build ONYX.exe: CXX_EXECUTABLE_LINKER__ONYX_Debug CMakeFiles/ONYX.dir/vendor/stb/stb_image.c.obj CMakeFiles/ONYX.dir/src/Arena.cpp.obj CMakeFiles/ONYX.dir/src/DX.cpp.obj CMakeFiles/ONYX.dir/src/DX_CreateCB.cpp.obj CMakeFiles/ONYX.dir/src/DX_CreateCUS.cpp.obj CMakeFiles/ONYX.dir/src/DX_DSV.cpp.obj CMakeFiles/ONYX.dir/src/DX_Debug.cpp.obj CMakeFiles/ONYX.dir/src/DX_LoadAssets.cpp.obj CMakeFiles/ONYX.dir/src/DX_LoadPipeline.cpp.obj CMakeFiles/ONYX.dir/src/DX_PopulateCommandLits.cpp.obj CMakeFiles/ONYX.dir/src/DX_Update.cpp.obj CMakeFiles/ONYX.dir/src/DX_WaitForPreviousFrame.cpp.obj CMakeFiles/ONYX.dir/src/Input.cpp.obj CMakeFiles/ONYX.dir/src/Main.cpp.obj CMakeFiles/ONYX.dir/src/Renderer.cpp.obj CMakeFiles/ONYX.dir/src/Win32Platform.cpp.obj
+build ONYX.exe: CXX_EXECUTABLE_LINKER__ONYX_Debug CMakeFiles/ONYX.dir/vendor/stb/stb_image.c.obj CMakeFiles/ONYX.dir/src/Arena.cpp.obj CMakeFiles/ONYX.dir/src/DX.cpp.obj CMakeFiles/ONYX.dir/src/DX_CreateCB.cpp.obj CMakeFiles/ONYX.dir/src/DX_CreateCUS.cpp.obj CMakeFiles/ONYX.dir/src/DX_DSV.cpp.obj CMakeFiles/ONYX.dir/src/DX_Debug.cpp.obj CMakeFiles/ONYX.dir/src/DX_LoadAssets.cpp.obj CMakeFiles/ONYX.dir/src/DX_LoadPipeline.cpp.obj CMakeFiles/ONYX.dir/src/DX_PopulateCommandLits.cpp.obj CMakeFiles/ONYX.dir/src/DX_Update.cpp.obj CMakeFiles/ONYX.dir/src/DX_WaitForPreviousFrame.cpp.obj CMakeFiles/ONYX.dir/src/Input.cpp.obj CMakeFiles/ONYX.dir/src/Main.cpp.obj CMakeFiles/ONYX.dir/src/Renderer.cpp.obj CMakeFiles/ONYX.dir/src/Win32Platform.cpp.obj CMakeFiles/ONYX.dir/res/Resource.rc.res
   CONFIG = Debug
   FLAGS = -O0 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview
   LINK_FLAGS = -Xlinker /subsystem:windows -fuse-ld=lld
@@ -330,6 +340,35 @@ build src/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
 build src/rebuild_cache: phony src/CMakeFiles/rebuild_cache.util
 
 # =============================================================================
+# Write statements declared in CMakeLists.txt:
+# C:/MyStuff/Programming/mine/ONYX/CMakeLists.txt
+# =============================================================================
+
+
+#############################################
+# Utility command for edit_cache
+
+build res/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\MyStuff\Programming\mine\ONYX\build-debug\res && "C:\Program Files\CMake\bin\cmake-gui.exe" -SC:\MyStuff\Programming\mine\ONYX -BC:\MyStuff\Programming\mine\ONYX\build-debug"
+  DESC = Running CMake cache editor...
+  pool = console
+  restat = 1
+
+build res/edit_cache: phony res/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build res/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\MyStuff\Programming\mine\ONYX\build-debug\res && "C:\Program Files\CMake\bin\cmake.exe" --regenerate-during-build -SC:\MyStuff\Programming\mine\ONYX -BC:\MyStuff\Programming\mine\ONYX\build-debug"
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build res/rebuild_cache: phony res/CMakeFiles/rebuild_cache.util
+
+# =============================================================================
 # Target aliases.
 
 build ONYX: phony ONYX.exe
@@ -342,7 +381,14 @@ build ONYX: phony ONYX.exe
 #############################################
 # Folder: C:/MyStuff/Programming/mine/ONYX/build-debug
 
-build all: phony ONYX.exe vendor/all src/all
+build all: phony ONYX.exe vendor/all src/all res/all
+
+# =============================================================================
+
+#############################################
+# Folder: C:/MyStuff/Programming/mine/ONYX/build-debug/res
+
+build res/all: phony
 
 # =============================================================================
 
@@ -365,14 +411,14 @@ build vendor/all: phony
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja C$:/MyStuff/Programming/mine/ONYX/build-debug/cmake_install.cmake C$:/MyStuff/Programming/mine/ONYX/build-debug/vendor/cmake_install.cmake C$:/MyStuff/Programming/mine/ONYX/build-debug/src/cmake_install.cmake: RERUN_CMAKE | C$:/MyStuff/Programming/mine/ONYX/CMakeLists.txt C$:/MyStuff/Programming/mine/ONYX/src/CMakeLists.txt C$:/MyStuff/Programming/mine/ONYX/vendor/CMakeLists.txt C$:/Program$ Files/CMake/share/cmake-4.4/Modules/CMakeCInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/CMakeCXXInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/CMakeCommonLanguageInclude.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/CMakeGenericSystem.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/CMakeInitializeConfigs.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/CMakeLanguageInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/CMakeRCInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/CMakeSystemSpecificInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/CMakeSystemSpecificInitialize.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Compiler/Clang-C.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Compiler/Clang-CXX.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Compiler/Clang.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Internal/CMakeCLinkerInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Internal/CMakeCXXLinkerInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Internal/CMakeCommonLinkerInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Linker/LLD-C.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Linker/LLD-CXX.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Linker/LLD.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Linker/MSVC.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Platform/Linker/Windows-LLD-C.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Platform/Linker/Windows-LLD-CXX.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Platform/Linker/Windows-LLD.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Platform/Linker/Windows-MSVC.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Platform/Windows-Clang-C.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Platform/Windows-Clang-CXX.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Platform/Windows-Clang.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Platform/Windows-Initialize.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Platform/Windows.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Platform/WindowsPaths.cmake CMakeCache.txt CMakeFiles/4.4.0-rc2/CMakeCCompiler.cmake CMakeFiles/4.4.0-rc2/CMakeCXXCompiler.cmake CMakeFiles/4.4.0-rc2/CMakeRCCompiler.cmake CMakeFiles/4.4.0-rc2/CMakeSystem.cmake
+build build.ninja C$:/MyStuff/Programming/mine/ONYX/build-debug/cmake_install.cmake C$:/MyStuff/Programming/mine/ONYX/build-debug/vendor/cmake_install.cmake C$:/MyStuff/Programming/mine/ONYX/build-debug/src/cmake_install.cmake C$:/MyStuff/Programming/mine/ONYX/build-debug/res/cmake_install.cmake: RERUN_CMAKE | C$:/MyStuff/Programming/mine/ONYX/CMakeLists.txt C$:/MyStuff/Programming/mine/ONYX/res/CMakeLists.txt C$:/MyStuff/Programming/mine/ONYX/src/CMakeLists.txt C$:/MyStuff/Programming/mine/ONYX/vendor/CMakeLists.txt C$:/Program$ Files/CMake/share/cmake-4.4/Modules/CMakeCInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/CMakeCXXInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/CMakeCommonLanguageInclude.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/CMakeGenericSystem.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/CMakeInitializeConfigs.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/CMakeLanguageInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/CMakeRCInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/CMakeSystemSpecificInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/CMakeSystemSpecificInitialize.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Compiler/Clang-C.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Compiler/Clang-CXX.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Compiler/Clang.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Internal/CMakeCLinkerInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Internal/CMakeCXXLinkerInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Internal/CMakeCommonLinkerInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Linker/LLD-C.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Linker/LLD-CXX.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Linker/LLD.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Linker/MSVC.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Platform/Linker/Windows-LLD-C.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Platform/Linker/Windows-LLD-CXX.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Platform/Linker/Windows-LLD.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Platform/Linker/Windows-MSVC.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Platform/Windows-Clang-C.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Platform/Windows-Clang-CXX.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Platform/Windows-Clang.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Platform/Windows-Initialize.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Platform/Windows.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Platform/WindowsPaths.cmake CMakeCache.txt CMakeFiles/4.4.0-rc2/CMakeCCompiler.cmake CMakeFiles/4.4.0-rc2/CMakeCXXCompiler.cmake CMakeFiles/4.4.0-rc2/CMakeRCCompiler.cmake CMakeFiles/4.4.0-rc2/CMakeSystem.cmake
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build C$:/MyStuff/Programming/mine/ONYX/CMakeLists.txt C$:/MyStuff/Programming/mine/ONYX/src/CMakeLists.txt C$:/MyStuff/Programming/mine/ONYX/vendor/CMakeLists.txt C$:/Program$ Files/CMake/share/cmake-4.4/Modules/CMakeCInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/CMakeCXXInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/CMakeCommonLanguageInclude.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/CMakeGenericSystem.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/CMakeInitializeConfigs.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/CMakeLanguageInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/CMakeRCInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/CMakeSystemSpecificInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/CMakeSystemSpecificInitialize.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Compiler/Clang-C.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Compiler/Clang-CXX.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Compiler/Clang.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Internal/CMakeCLinkerInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Internal/CMakeCXXLinkerInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Internal/CMakeCommonLinkerInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Linker/LLD-C.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Linker/LLD-CXX.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Linker/LLD.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Linker/MSVC.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Platform/Linker/Windows-LLD-C.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Platform/Linker/Windows-LLD-CXX.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Platform/Linker/Windows-LLD.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Platform/Linker/Windows-MSVC.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Platform/Windows-Clang-C.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Platform/Windows-Clang-CXX.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Platform/Windows-Clang.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Platform/Windows-Initialize.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Platform/Windows.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Platform/WindowsPaths.cmake CMakeCache.txt CMakeFiles/4.4.0-rc2/CMakeCCompiler.cmake CMakeFiles/4.4.0-rc2/CMakeCXXCompiler.cmake CMakeFiles/4.4.0-rc2/CMakeRCCompiler.cmake CMakeFiles/4.4.0-rc2/CMakeSystem.cmake: phony
+build C$:/MyStuff/Programming/mine/ONYX/CMakeLists.txt C$:/MyStuff/Programming/mine/ONYX/res/CMakeLists.txt C$:/MyStuff/Programming/mine/ONYX/src/CMakeLists.txt C$:/MyStuff/Programming/mine/ONYX/vendor/CMakeLists.txt C$:/Program$ Files/CMake/share/cmake-4.4/Modules/CMakeCInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/CMakeCXXInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/CMakeCommonLanguageInclude.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/CMakeGenericSystem.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/CMakeInitializeConfigs.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/CMakeLanguageInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/CMakeRCInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/CMakeSystemSpecificInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/CMakeSystemSpecificInitialize.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Compiler/Clang-C.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Compiler/Clang-CXX.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Compiler/Clang.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Internal/CMakeCLinkerInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Internal/CMakeCXXLinkerInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Internal/CMakeCommonLinkerInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Linker/LLD-C.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Linker/LLD-CXX.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Linker/LLD.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Linker/MSVC.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Platform/Linker/Windows-LLD-C.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Platform/Linker/Windows-LLD-CXX.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Platform/Linker/Windows-LLD.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Platform/Linker/Windows-MSVC.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Platform/Windows-Clang-C.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Platform/Windows-Clang-CXX.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Platform/Windows-Clang.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Platform/Windows-Initialize.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Platform/Windows.cmake C$:/Program$ Files/CMake/share/cmake-4.4/Modules/Platform/WindowsPaths.cmake CMakeCache.txt CMakeFiles/4.4.0-rc2/CMakeCCompiler.cmake CMakeFiles/4.4.0-rc2/CMakeCXXCompiler.cmake CMakeFiles/4.4.0-rc2/CMakeRCCompiler.cmake CMakeFiles/4.4.0-rc2/CMakeSystem.cmake: phony
 
 
 #############################################

@@ -1,6 +1,9 @@
 #include "Win32Platform.hpp"
 #include "Input.hpp"
 #include <inttypes.h>
+#ifndef IDI_ICON1
+#define IDI_ICON1 101
+#endif
 using ResizeCallback = void (*)(void* userdata, uint32_t width, uint32_t height);
 uint32_t Win32Platform::width = 800;
 uint32_t Win32Platform::height = 800;
@@ -30,8 +33,8 @@ void Win32Platform::InitWindow(HINSTANCE hInstance, int nCmdShow)
     wc.cbClsExtra = 0;
     wc.cbWndExtra = 0;
     wc.hInstance = hInstance;
-    wc.hIcon = LoadIcon(NULL, IDI_APPLICATION);
-    wc.hIconSm = LoadIcon(NULL, IDI_APPLICATION);
+    wc.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_ICON1));
+    wc.hIconSm = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_ICON1));
     wc.hCursor = LoadCursor(NULL, IDC_ARROW);
     wc.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
     wc.lpszMenuName = NULL;
