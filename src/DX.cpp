@@ -14,6 +14,8 @@ void DX::Init()
 }
 void DX::Render()
 {
+
+    Update();
     PopulateCommandList();
     ID3D12CommandList* ppCommandList[] = {commandList.Get()};
     commandQueue->ExecuteCommandLists(_countof(ppCommandList), ppCommandList);
@@ -22,7 +24,6 @@ void DX::Render()
 #ifndef NDEBUG
     FlushDebugMessages();
 #endif
-    Update();
 }
 void DX::ThrowIfFailed(HRESULT hr)
 {

@@ -36,8 +36,10 @@ class DX
     ComPtr<ID3D12Resource> depthStencilBuffer;
     ComPtr<ID3D12DescriptorHeap> dsvHeap;
     ComPtr<ID3D12DescriptorHeap> cusHeap;
+    UINT cusSize;
     ComPtr<ID3D12Resource> constantBuffer;
-    ComPtr<ID3D12Resource> texture;
+    ComPtr<ID3D12Resource> textureObject;
+    ComPtr<ID3D12Resource> textureUploadHeap;
     UINT8* pCbvDataBegin;
     UINT dsvDescriptorSize;
     D3D12_CLEAR_VALUE depthStencilClearValue;
@@ -62,6 +64,7 @@ class DX
     {
         DirectX::XMFLOAT3 pos;
         DirectX::XMFLOAT4 color;
+        DirectX::XMFLOAT2 uv;
     };
     struct alignas(256) SceneConstantBuffer
     {
@@ -80,7 +83,8 @@ class DX
     void CreateDepthStencilView();
     void CreateCUSHeap();
     void CreateCB();
-    std::vector<UINT*> GenerateTextureData();
+    void CreateTexture();
+    std::vector<UINT8> GenerateTextureData();
 #ifndef NDEBUG
     void FlushDebugMessages();
 #endif

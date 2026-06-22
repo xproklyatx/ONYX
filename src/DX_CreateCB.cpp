@@ -9,10 +9,11 @@ void DX::CreateCB()
                                                   D3D12_RESOURCE_STATE_GENERIC_READ, nullptr,
                                                   IID_PPV_ARGS(&constantBuffer)));
 
+    CD3DX12_CPU_DESCRIPTOR_HANDLE cbvHandle(cusHeap->GetCPUDescriptorHandleForHeapStart(), 0, cusSize);
     D3D12_CONSTANT_BUFFER_VIEW_DESC cbvDesc = {};
     cbvDesc.BufferLocation = constantBuffer->GetGPUVirtualAddress();
     cbvDesc.SizeInBytes = constantBufferSize;
-    device->CreateConstantBufferView(&cbvDesc, cusHeap->GetCPUDescriptorHandleForHeapStart());
+    device->CreateConstantBufferView(&cbvDesc, cbvHandle);
 
     CD3DX12_RANGE readRange(0, 0);
     ThrowIfFailed(constantBuffer->Map(0, &readRange, reinterpret_cast<void**>(&pCbvDataBegin)));
