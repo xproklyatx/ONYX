@@ -38,7 +38,6 @@ bool Input::IsKeyReleased(unsigned char key)
     return !keys[key] && keysPrev[key];
 }
 
-// NEW: Check if key is currently held down
 bool Input::IsKeyDown(unsigned char key)
 {
     return keys[key];
