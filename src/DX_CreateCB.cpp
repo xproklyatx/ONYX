@@ -1,5 +1,4 @@
 #include "DX.hpp"
-#include "d3dx12_core.h"
 void DX::CreateCB()
 {
     const UINT constantBufferSize = sizeof(SceneConstantBuffer);

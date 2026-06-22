@@ -1,8 +1,10 @@
 #include "Win32Platform.hpp"
 #include "Renderer.hpp"
 #include "Console.hpp"
+#include "DeltaTime.hpp"
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
+    DeltaTime::Init();
 #ifndef NDEBUG
     Console::Init();
 #endif
