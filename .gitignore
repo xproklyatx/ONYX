@@ -432,5 +432,6 @@ out/*
 .clangd
 ### VisualStudio Patch ###
 # Additional files built by Visual Studio
-
+build-debug/*
+build-release/*
 # End of https://www.toptal.com/developers/gitignore/api/windows,visualstudio,c++
