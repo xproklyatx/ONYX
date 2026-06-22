@@ -6,12 +6,8 @@ void DX::PopulateCommandList()
     commandList->SetGraphicsRootSignature(rootSignature.Get());
     ID3D12DescriptorHeap* ppHeaps[] = {cusHeap.Get()};
     commandList->SetDescriptorHeaps(_countof(ppHeaps), ppHeaps);
-    CD3DX12_GPU_DESCRIPTOR_HANDLE cbvHandle(cusHeap->GetGPUDescriptorHandleForHeapStart(),
-                                            0, // 0
-                                            cusSize);
-    CD3DX12_GPU_DESCRIPTOR_HANDLE srvHandle(cusHeap->GetGPUDescriptorHandleForHeapStart(),
-                                            1, // 1
-                                            cusSize);
+    CD3DX12_GPU_DESCRIPTOR_HANDLE cbvHandle(cusHeap->GetGPUDescriptorHandleForHeapStart(), 0, cusSize);
+    CD3DX12_GPU_DESCRIPTOR_HANDLE srvHandle(cusHeap->GetGPUDescriptorHandleForHeapStart(), 1, cusSize);
     commandList->SetGraphicsRootDescriptorTable(0, cbvHandle);
     commandList->SetGraphicsRootDescriptorTable(1, srvHandle);
     commandList->RSSetViewports(1, &viewPort);
