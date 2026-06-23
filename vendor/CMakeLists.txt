@@ -1,6 +1,6 @@
 set(INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/directx)
 set(VND_SRC ${CMAKE_CURRENT_SOURCE_DIR}/stb/stb_image.c)
-set(VND_LIBS d3d12.lib d3dcompiler.lib dxgi.lib dxguid.lib)
+set(VND_LIBS d3d12.lib d3dcompiler.lib dxgi.lib dxguid.lib xaudio2.lib)
 target_include_directories(ONYX PRIVATE ${INCLUDE_DIRS})
 target_sources(ONYX PRIVATE ${VND_SRC})
 target_link_libraries(ONYX PRIVATE ${VND_LIBS})

@@ -2,6 +2,7 @@
 #include "Renderer.hpp"
 #include "DeltaTime.hpp"
 #include "Input.hpp"
+#include "Audio.hpp"
 Renderer::Renderer()
 {
 }
@@ -15,7 +16,9 @@ void Renderer::Run()
 }
 void Renderer::Init()
 {
-
+    Audio::Initialize();
+    Audio::AddWav("res/music/onyx.wav", "onyx");
+    Audio::PlaySound("onyx", true);
     Input::Initialize();
     ICam::Set(&camera);
     camera.SetFocus(true);
@@ -30,5 +33,6 @@ void Renderer::MainLoop()
         win32Instance.PollEvents();
         camera.Update();
         dx.Render();
+        Audio::Update();
     }
 }
