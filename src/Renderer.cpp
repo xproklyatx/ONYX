@@ -8,6 +8,7 @@ Renderer::Renderer()
 }
 Renderer::~Renderer()
 {
+    Audio::Shutdown();
 }
 void Renderer::Run()
 {

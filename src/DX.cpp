@@ -1,11 +1,11 @@
 #include "DX.hpp"
 #include <Console.hpp>
-#include <sstream>
 DX::DX() : cbData({}), rotationAngle(0.0f)
 {
 }
 DX::~DX()
 {
+    descriptorManager.ShutDown();
 }
 void DX::Init()
 {
@@ -24,16 +24,4 @@ void DX::Render()
 #ifndef NDEBUG
     FlushDebugMessages();
 #endif
-}
-void DX::ThrowIfFailed(HRESULT hr)
-{
-    if (FAILED(hr))
-    {
-#ifndef NDEBUG
-        std::ostringstream oss;
-        oss << "HRESULT Failed: 0x" << std::hex << std::uppercase << hr << "\n";
-        PRINT_ERROR(oss.str().c_str());
-#endif
-        throw std::exception();
-    }
 }

@@ -92,6 +92,13 @@ void DX::LoadAssets()
     ThrowIfFailed(device->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_DIRECT, commandAllocator.Get(),
                                             pipelineState.Get(), IID_PPV_ARGS(&commandList)));
     {
+        descriptorManager.Init(device.Get(), commandList.Get(), 10, 0, 10, 0);
+        cbInfo = descriptorManager.CreateCBHandle(sizeof(SceneConstantBuffer));
+        memcpy(cbInfo.pCBVDataBegin, &cbData, sizeof(cbData));
+
+        descriptorManager.CreateSRVHandle("res/textures/cutie.jpg");
+    }
+    {
 
         Vertex vertices[] = {{{-0.5f, -0.5f, 0.5f}, {1.0f, 0.0f, 0.0f, 1.0f}, {0.0f, 1.0f}},
                              {{-0.5f, 0.5f, 0.5f}, {1.0f, 0.0f, 0.0f, 1.0f}, {0.0f, 0.0f}},
@@ -166,8 +173,6 @@ void DX::LoadAssets()
         indexBufferView.BufferLocation = indexBuffer->GetGPUVirtualAddress();
         indexBufferView.Format = DXGI_FORMAT_R16_UINT;
         indexBufferView.SizeInBytes = indexBufferSize;
-        CreateCB();
-        CreateTexture();
         ThrowIfFailed(commandList->Close());
         ID3D12CommandList* ppCommandLists[] = {commandList.Get()};
         commandQueue->ExecuteCommandLists(_countof(ppCommandLists), ppCommandLists);

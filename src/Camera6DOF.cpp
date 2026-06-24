@@ -1,21 +1,20 @@
 #include "Camera6DOF.hpp"
 #include "DeltaTime.hpp"
 #include "Input.hpp"
+#include <algorithm>
 #include <cmath>
 
+using namespace DirectX;
+
 Camera6DOF::Camera6DOF()
+    : position{0.0f, 0.0f, -5.0f}, forward{0.0f, 0.0f, 1.0f}, right{1.0f, 0.0f, 0.0f}, up{0.0f, 1.0f, 0.0f},
+      pitch(0.0f), yaw(0.0f), fov(45.0f), bFocused(false), bViewDirty(true), centerPos{0, 0}, lastMousePos{0, 0}
 {
-    position = {0.0f, 0.0f, -5.0f};
-    pitch = 0.0f;
-    yaw = 0.0f;
-    fov = 45.0f;
-    bFocused = false;
     UpdateVectors();
 }
 
 void Camera6DOF::Update()
 {
-
     if (Input::IsKeyPressed(VK_ESCAPE))
     {
         ToggleFocus();
@@ -82,56 +81,45 @@ void Camera6DOF::ProcessInput()
     if (!bFocused)
         return;
 
+    XMVECTOR pos = XMLoadFloat3(&position);
+    XMVECTOR fwd = XMLoadFloat3(&forward);
+    XMVECTOR rightVec = XMLoadFloat3(&right);
+    XMVECTOR upVec = XMLoadFloat3(&up);
+
+    float speed = moveSpeed * dt;
+
     if (Input::IsKeyDown('W') || Input::IsKeyDown('w'))
     {
-        DirectX::XMVECTOR pos = DirectX::XMLoadFloat3(&position);
-        DirectX::XMVECTOR fwd = DirectX::XMLoadFloat3(&forward);
-        pos += fwd * moveSpeed * dt;
-        DirectX::XMStoreFloat3(&position, pos);
+        pos = XMVectorAdd(pos, XMVectorScale(fwd, speed));
         bViewDirty = true;
     }
     if (Input::IsKeyDown('S') || Input::IsKeyDown('s'))
     {
-        DirectX::XMVECTOR pos = DirectX::XMLoadFloat3(&position);
-        DirectX::XMVECTOR fwd = DirectX::XMLoadFloat3(&forward);
-        pos -= fwd * moveSpeed * dt;
-        DirectX::XMStoreFloat3(&position, pos);
+        pos = XMVectorSubtract(pos, XMVectorScale(fwd, speed));
         bViewDirty = true;
     }
-
     if (Input::IsKeyDown('A') || Input::IsKeyDown('a'))
     {
-        DirectX::XMVECTOR pos = DirectX::XMLoadFloat3(&position);
-        DirectX::XMVECTOR right = DirectX::XMLoadFloat3(&this->right);
-        pos -= right * moveSpeed * dt;
-        DirectX::XMStoreFloat3(&position, pos);
+        pos = XMVectorSubtract(pos, XMVectorScale(rightVec, speed));
         bViewDirty = true;
     }
     if (Input::IsKeyDown('D') || Input::IsKeyDown('d'))
     {
-        DirectX::XMVECTOR pos = DirectX::XMLoadFloat3(&position);
-        DirectX::XMVECTOR right = DirectX::XMLoadFloat3(&this->right);
-        pos += right * moveSpeed * dt;
-        DirectX::XMStoreFloat3(&position, pos);
+        pos = XMVectorAdd(pos, XMVectorScale(rightVec, speed));
         bViewDirty = true;
     }
-
     if (Input::IsKeyDown(VK_SPACE))
     {
-        DirectX::XMVECTOR pos = DirectX::XMLoadFloat3(&position);
-        DirectX::XMVECTOR up = DirectX::XMLoadFloat3(&this->up);
-        pos += up * moveSpeed * dt;
-        DirectX::XMStoreFloat3(&position, pos);
+        pos = XMVectorAdd(pos, XMVectorScale(upVec, speed));
         bViewDirty = true;
     }
     if (Input::IsKeyDown(VK_SHIFT))
     {
-        DirectX::XMVECTOR pos = DirectX::XMLoadFloat3(&position);
-        DirectX::XMVECTOR up = DirectX::XMLoadFloat3(&this->up);
-        pos -= up * moveSpeed * dt;
-        DirectX::XMStoreFloat3(&position, pos);
+        pos = XMVectorSubtract(pos, XMVectorScale(upVec, speed));
         bViewDirty = true;
     }
+
+    XMStoreFloat3(&position, pos);
 }
 
 void Camera6DOF::OnMouseMove(int x, int y)
@@ -144,8 +132,8 @@ void Camera6DOF::OnMouseMove(int x, int y)
 
     if (deltaX != 0 || deltaY != 0)
     {
-        pitch -= deltaY * mouseSensitivity;
-        yaw += deltaX * mouseSensitivity;
+        pitch -= static_cast<float>(deltaY) * mouseSensitivity;
+        yaw += static_cast<float>(deltaX) * mouseSensitivity;
         bViewDirty = true;
 
         HWND hWnd = GetActiveWindow();
@@ -157,21 +145,21 @@ void Camera6DOF::OnMouseMove(int x, int y)
 
 void Camera6DOF::UpdateVectors()
 {
-    pitch = std::clamp(pitch, -89.0f * 3.14159f / 180.0f, 89.0f * 3.14159f / 180.0f);
+    const float pitchLimit = 89.0f * 3.14159f / 180.0f;
+    pitch = std::clamp(pitch, -pitchLimit, pitchLimit);
 
-    DirectX::XMVECTOR forward =
-        DirectX::XMVectorSet(sinf(yaw) * cosf(pitch), sinf(pitch), cosf(yaw) * cosf(pitch), 0.0f);
-    forward = DirectX::XMVector3Normalize(forward);
-    DirectX::XMStoreFloat3(&this->forward, forward);
+    XMVECTOR fwd = XMVectorSet(sinf(yaw) * cosf(pitch), sinf(pitch), cosf(yaw) * cosf(pitch), 0.0f);
+    fwd = XMVector3Normalize(fwd);
+    XMStoreFloat3(&forward, fwd);
 
-    DirectX::XMVECTOR worldUp = DirectX::XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
-    DirectX::XMVECTOR right = DirectX::XMVector3Cross(worldUp, forward);
-    right = DirectX::XMVector3Normalize(right);
-    DirectX::XMStoreFloat3(&this->right, right);
+    XMVECTOR worldUp = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
+    XMVECTOR rightVec = XMVector3Cross(worldUp, fwd);
+    rightVec = XMVector3Normalize(rightVec);
+    XMStoreFloat3(&right, rightVec);
 
-    DirectX::XMVECTOR up = DirectX::XMVector3Cross(forward, right);
-    up = DirectX::XMVector3Normalize(up);
-    DirectX::XMStoreFloat3(&this->up, up);
+    XMVECTOR upVec = XMVector3Cross(fwd, rightVec);
+    upVec = XMVector3Normalize(upVec);
+    XMStoreFloat3(&up, upVec);
 
     bViewDirty = true;
 }
@@ -180,10 +168,10 @@ DirectX::XMMATRIX Camera6DOF::GetViewMatrix() const
 {
     if (bViewDirty)
     {
-        DirectX::XMVECTOR pos = DirectX::XMLoadFloat3(&position);
-        DirectX::XMVECTOR target = pos + DirectX::XMLoadFloat3(&forward);
-        DirectX::XMVECTOR up = DirectX::XMLoadFloat3(&this->up);
-        viewMatrix = DirectX::XMMatrixLookAtLH(pos, target, up);
+        XMVECTOR pos = XMLoadFloat3(&position);
+        XMVECTOR target = XMVectorAdd(pos, XMLoadFloat3(&forward));
+        XMVECTOR upVec = XMLoadFloat3(&up);
+        viewMatrix = XMMatrixLookAtLH(pos, target, upVec);
         bViewDirty = false;
     }
     return viewMatrix;
@@ -191,28 +179,25 @@ DirectX::XMMATRIX Camera6DOF::GetViewMatrix() const
 
 DirectX::XMMATRIX Camera6DOF::GetProjectionMatrix(float aspectRatio) const
 {
-    return DirectX::XMMatrixPerspectiveFovLH(DirectX::XMConvertToRadians(fov), aspectRatio, nearPlane, farPlane);
+    return XMMatrixPerspectiveFovLH(XMConvertToRadians(fov), aspectRatio, nearPlane, farPlane);
 }
 
 void Camera6DOF::OnMouseWheel(int delta)
 {
-    fov = std::clamp(fov - delta * zoomSpeed * 0.01f, 1.0f, 120.0f);
+    fov = std::clamp(fov - static_cast<float>(delta) * zoomSpeed * 0.01f, 1.0f, 120.0f);
 }
 
 void Camera6DOF::OnKeyDown(WPARAM key)
-{
+{ /* Not implemented */
 }
-
 void Camera6DOF::OnKeyUp(WPARAM key)
-{
+{ /* Not implemented */
 }
-
 void Camera6DOF::OnRightMouseDown()
-{
+{ /* Not implemented */
 }
-
 void Camera6DOF::OnRightMouseUp()
-{
+{ /* Not implemented */
 }
 
 void Camera6DOF::SetPosition(float x, float y, float z)
@@ -236,14 +221,14 @@ void Camera6DOF::SetRotation(float pitch, float yaw)
 
 void Camera6DOF::LookAt(const DirectX::XMFLOAT3& target)
 {
-    DirectX::XMVECTOR pos = DirectX::XMLoadFloat3(&position);
-    DirectX::XMVECTOR tgt = DirectX::XMLoadFloat3(&target);
-    DirectX::XMVECTOR dir = DirectX::XMVectorSubtract(tgt, pos);
-    dir = DirectX::XMVector3Normalize(dir);
+    XMVECTOR pos = XMLoadFloat3(&position);
+    XMVECTOR tgt = XMLoadFloat3(&target);
+    XMVECTOR dir = XMVectorSubtract(tgt, pos);
+    dir = XMVector3Normalize(dir);
 
-    float x = DirectX::XMVectorGetX(dir);
-    float y = DirectX::XMVectorGetY(dir);
-    float z = DirectX::XMVectorGetZ(dir);
+    float x = XMVectorGetX(dir);
+    float y = XMVectorGetY(dir);
+    float z = XMVectorGetZ(dir);
 
     yaw = atan2f(x, z);
     pitch = asinf(y);

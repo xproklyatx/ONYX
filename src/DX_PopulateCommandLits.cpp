@@ -4,12 +4,14 @@ void DX::PopulateCommandList()
     ThrowIfFailed(commandList->Reset(commandAllocator.Get(), pipelineState.Get()));
 
     commandList->SetGraphicsRootSignature(rootSignature.Get());
-    ID3D12DescriptorHeap* ppHeaps[] = {cusHeap.Get()};
+    ID3D12DescriptorHeap* ppHeaps[] = {descriptorManager.GetHeap()};
     commandList->SetDescriptorHeaps(_countof(ppHeaps), ppHeaps);
-    CD3DX12_GPU_DESCRIPTOR_HANDLE cbvHandle(cusHeap->GetGPUDescriptorHandleForHeapStart(), 0, cusSize);
-    CD3DX12_GPU_DESCRIPTOR_HANDLE srvHandle(cusHeap->GetGPUDescriptorHandleForHeapStart(), 1, cusSize);
-    commandList->SetGraphicsRootDescriptorTable(0, cbvHandle);
-    commandList->SetGraphicsRootDescriptorTable(1, srvHandle);
+    // CD3DX12_GPU_DESCRIPTOR_HANDLE cbvHandle(cusHeap->GetGPUDescriptorHandleForHeapStart(), 0, cusSize);
+    // CD3DX12_GPU_DESCRIPTOR_HANDLE srvHandle(cusHeap->GetGPUDescriptorHandleForHeapStart(), 1, cusSize);
+    // commandList->SetGraphicsRootDescriptorTable(0, cbvHandle);
+    // commandList->SetGraphicsRootDescriptorTable(1, srvHandle);
+    descriptorManager.SetTable<ONYX_CUS_TYPE::CBV>(0, cbInfo.index);
+    descriptorManager.SetTable<ONYX_CUS_TYPE::SRV>(1, 0);
     commandList->RSSetViewports(1, &viewPort);
     commandList->RSSetScissorRects(1, &scissorRect);
 

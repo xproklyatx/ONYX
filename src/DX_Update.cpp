@@ -13,12 +13,9 @@ void DX::Update()
 
     float aspectRatio = static_cast<float>(SCR_WIDTH) / static_cast<float>(SCR_HEIGHT);
     XMMATRIX projection = XMMatrixPerspectiveFovLH(XMConvertToRadians(45.0f), aspectRatio, 0.1f, 100.0f);
-
     cbData.model = XMMatrixTranspose(model);
     cbData.view = XMMatrixTranspose(view);
     cbData.proj = XMMatrixTranspose(projection);
-
-    memcpy(pCbvDataBegin, &cbData, sizeof(cbData));
-
+    memcpy(cbInfo.pCBVDataBegin, &cbData, sizeof(cbData));
     rotationAngle += 0.02f;
 }

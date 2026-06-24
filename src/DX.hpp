@@ -7,6 +7,8 @@
 #include <d3dcompiler.h>
 #include <DirectXMath.h>
 #include <vector>
+#include "DescriptorManager.hpp"
+#include "Helper.hpp"
 class DX
 {
   public:
@@ -19,11 +21,11 @@ class DX
     void Render();
 
   private:
-    void ThrowIfFailed(HRESULT hr);
     static const UINT frameCount = 2;
     static const UINT textureWidth = 256;
     static const UINT textureHeight = 256;
     static const UINT texturePixelSize = 4;
+    static const UINT numDesc = 512;
     ComPtr<IDXGISwapChain3> swapChain;
     ComPtr<ID3D12Device> device;
     ComPtr<ID3D12Resource> renderTargets[frameCount];
@@ -35,12 +37,13 @@ class DX
     ComPtr<ID3D12PipelineState> pipelineState;
     ComPtr<ID3D12Resource> depthStencilBuffer;
     ComPtr<ID3D12DescriptorHeap> dsvHeap;
-    ComPtr<ID3D12DescriptorHeap> cusHeap;
-    UINT cusSize;
-    ComPtr<ID3D12Resource> constantBuffer;
-    ComPtr<ID3D12Resource> textureObject;
-    ComPtr<ID3D12Resource> textureUploadHeap;
-    UINT8* pCbvDataBegin;
+    // ComPtr<ID3D12DescriptorHeap> cusHeap;
+    DescriptorManager descriptorManager;
+    //  UINT cusSize;
+    // ComPtr<ID3D12Resource> constantBuffer;
+    // ComPtr<ID3D12Resource> textureObject;
+    // ComPtr<ID3D12Resource> textureUploadHeap;
+    //    UINT8* pCbvDataBegin;
     UINT dsvDescriptorSize;
     D3D12_CLEAR_VALUE depthStencilClearValue;
     BOOL useDepthStencil = TRUE;
@@ -74,6 +77,7 @@ class DX
     };
     static_assert((sizeof(SceneConstantBuffer) % 256) == 0, "Constant Buffer size must be 256-byte aligned");
     SceneConstantBuffer cbData;
+    CB_INFO cbInfo;
     float rotationAngle;
     void LoadPipeline();
     void LoadAssets();
@@ -81,10 +85,6 @@ class DX
     void Update();
     void WaitForPreviousFrame();
     void CreateDepthStencilView();
-    void CreateCUSHeap();
-    void CreateCB();
-    void CreateTexture();
-    std::vector<UINT8> GenerateTextureData();
 #ifndef NDEBUG
     void FlushDebugMessages();
 #endif
