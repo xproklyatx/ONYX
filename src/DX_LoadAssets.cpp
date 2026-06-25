@@ -100,79 +100,48 @@ void DX::LoadAssets()
     }
     {
 
-        Vertex vertices[] = {{{-0.5f, -0.5f, 0.5f}, {1.0f, 0.0f, 0.0f, 1.0f}, {0.0f, 1.0f}},
-                             {{-0.5f, 0.5f, 0.5f}, {1.0f, 0.0f, 0.0f, 1.0f}, {0.0f, 0.0f}},
-                             {{0.5f, 0.5f, 0.5f}, {1.0f, 0.0f, 0.0f, 1.0f}, {1.0f, 0.0f}},
-                             {{0.5f, -0.5f, 0.5f}, {1.0f, 0.0f, 0.0f, 1.0f}, {1.0f, 1.0f}},
+        std::vector<Vertex> vertices = {{{-0.5f, -0.5f, 0.5f}, {1.0f, 0.0f, 0.0f, 1.0f}, {0.0f, 1.0f}},
+                                        {{-0.5f, 0.5f, 0.5f}, {1.0f, 0.0f, 0.0f, 1.0f}, {0.0f, 0.0f}},
+                                        {{0.5f, 0.5f, 0.5f}, {1.0f, 0.0f, 0.0f, 1.0f}, {1.0f, 0.0f}},
+                                        {{0.5f, -0.5f, 0.5f}, {1.0f, 0.0f, 0.0f, 1.0f}, {1.0f, 1.0f}},
 
-                             {{-0.5f, -0.5f, -0.5f}, {0.0f, 1.0f, 0.0f, 1.0f}, {0.0f, 1.0f}},
-                             {{-0.5f, 0.5f, -0.5f}, {0.0f, 1.0f, 0.0f, 1.0f}, {0.0f, 0.0f}},
-                             {{0.5f, 0.5f, -0.5f}, {0.0f, 1.0f, 0.0f, 1.0f}, {1.0f, 0.0f}},
-                             {{0.5f, -0.5f, -0.5f}, {0.0f, 1.0f, 0.0f, 1.0f}, {1.0f, 1.0f}},
+                                        {{-0.5f, -0.5f, -0.5f}, {0.0f, 1.0f, 0.0f, 1.0f}, {0.0f, 1.0f}},
+                                        {{-0.5f, 0.5f, -0.5f}, {0.0f, 1.0f, 0.0f, 1.0f}, {0.0f, 0.0f}},
+                                        {{0.5f, 0.5f, -0.5f}, {0.0f, 1.0f, 0.0f, 1.0f}, {1.0f, 0.0f}},
+                                        {{0.5f, -0.5f, -0.5f}, {0.0f, 1.0f, 0.0f, 1.0f}, {1.0f, 1.0f}},
 
-                             {{-0.5f, 0.5f, -0.5f}, {0.0f, 0.0f, 1.0f, 1.0f}, {0.0f, 1.0f}},
-                             {{-0.5f, 0.5f, 0.5f}, {0.0f, 0.0f, 1.0f, 1.0f}, {0.0f, 0.0f}},
-                             {{0.5f, 0.5f, 0.5f}, {0.0f, 0.0f, 1.0f, 1.0f}, {1.0f, 0.0f}},
-                             {{0.5f, 0.5f, -0.5f}, {0.0f, 0.0f, 1.0f, 1.0f}, {1.0f, 1.0f}},
+                                        {{-0.5f, 0.5f, -0.5f}, {0.0f, 0.0f, 1.0f, 1.0f}, {0.0f, 1.0f}},
+                                        {{-0.5f, 0.5f, 0.5f}, {0.0f, 0.0f, 1.0f, 1.0f}, {0.0f, 0.0f}},
+                                        {{0.5f, 0.5f, 0.5f}, {0.0f, 0.0f, 1.0f, 1.0f}, {1.0f, 0.0f}},
+                                        {{0.5f, 0.5f, -0.5f}, {0.0f, 0.0f, 1.0f, 1.0f}, {1.0f, 1.0f}},
 
-                             {{-0.5f, -0.5f, -0.5f}, {1.0f, 1.0f, 0.0f, 1.0f}, {0.0f, 1.0f}},
-                             {{-0.5f, -0.5f, 0.5f}, {1.0f, 1.0f, 0.0f, 1.0f}, {0.0f, 0.0f}},
-                             {{0.5f, -0.5f, 0.5f}, {1.0f, 1.0f, 0.0f, 1.0f}, {1.0f, 0.0f}},
-                             {{0.5f, -0.5f, -0.5f}, {1.0f, 1.0f, 0.0f, 1.0f}, {1.0f, 1.0f}},
+                                        {{-0.5f, -0.5f, -0.5f}, {1.0f, 1.0f, 0.0f, 1.0f}, {0.0f, 1.0f}},
+                                        {{-0.5f, -0.5f, 0.5f}, {1.0f, 1.0f, 0.0f, 1.0f}, {0.0f, 0.0f}},
+                                        {{0.5f, -0.5f, 0.5f}, {1.0f, 1.0f, 0.0f, 1.0f}, {1.0f, 0.0f}},
+                                        {{0.5f, -0.5f, -0.5f}, {1.0f, 1.0f, 0.0f, 1.0f}, {1.0f, 1.0f}},
 
-                             {{0.5f, -0.5f, -0.5f}, {0.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 1.0f}},
-                             {{0.5f, -0.5f, 0.5f}, {0.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f}},
-                             {{0.5f, 0.5f, 0.5f}, {0.0f, 1.0f, 1.0f, 1.0f}, {1.0f, 0.0f}},
-                             {{0.5f, 0.5f, -0.5f}, {0.0f, 1.0f, 1.0f, 1.0f}, {1.0f, 1.0f}},
+                                        {{0.5f, -0.5f, -0.5f}, {0.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 1.0f}},
+                                        {{0.5f, -0.5f, 0.5f}, {0.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f}},
+                                        {{0.5f, 0.5f, 0.5f}, {0.0f, 1.0f, 1.0f, 1.0f}, {1.0f, 0.0f}},
+                                        {{0.5f, 0.5f, -0.5f}, {0.0f, 1.0f, 1.0f, 1.0f}, {1.0f, 1.0f}},
 
-                             {{-0.5f, -0.5f, -0.5f}, {1.0f, 0.0f, 1.0f, 1.0f}, {0.0f, 1.0f}},
-                             {{-0.5f, -0.5f, 0.5f}, {1.0f, 0.0f, 1.0f, 1.0f}, {0.0f, 0.0f}},
-                             {{-0.5f, 0.5f, 0.5f}, {1.0f, 0.0f, 1.0f, 1.0f}, {1.0f, 0.0f}},
-                             {{-0.5f, 0.5f, -0.5f}, {1.0f, 0.0f, 1.0f, 1.0f}, {1.0f, 1.0f}}};
-        const UINT vertexBufferSize = sizeof(vertices);
-        CD3DX12_HEAP_PROPERTIES heapProps(D3D12_HEAP_TYPE_UPLOAD);
-        auto desc = CD3DX12_RESOURCE_DESC::Buffer(vertexBufferSize);
-        ThrowIfFailed(device->CreateCommittedResource(&heapProps, D3D12_HEAP_FLAG_NONE, &desc,
-                                                      D3D12_RESOURCE_STATE_GENERIC_READ, nullptr,
-                                                      IID_PPV_ARGS(&vertexBuffer)));
-        UINT8* pVertexDataBegin;
-        CD3DX12_RANGE readRange(0, 0);
-        ThrowIfFailed(vertexBuffer->Map(0, &readRange, reinterpret_cast<void**>(&pVertexDataBegin)));
-        memcpy(pVertexDataBegin, vertices, sizeof(vertices));
-        vertexBuffer->Unmap(0, nullptr);
-        vertexBufferView.BufferLocation = vertexBuffer->GetGPUVirtualAddress();
-        vertexBufferView.StrideInBytes = sizeof(Vertex);
-        vertexBufferView.SizeInBytes = vertexBufferSize;
-    }
-    {
-        UINT16 indices[] = {0,  1,  2,  0,  2,  3,
+                                        {{-0.5f, -0.5f, -0.5f}, {1.0f, 0.0f, 1.0f, 1.0f}, {0.0f, 1.0f}},
+                                        {{-0.5f, -0.5f, 0.5f}, {1.0f, 0.0f, 1.0f, 1.0f}, {0.0f, 0.0f}},
+                                        {{-0.5f, 0.5f, 0.5f}, {1.0f, 0.0f, 1.0f, 1.0f}, {1.0f, 0.0f}},
+                                        {{-0.5f, 0.5f, -0.5f}, {1.0f, 0.0f, 1.0f, 1.0f}, {1.0f, 1.0f}}};
+        std::vector<UINT16> indices = {0,  1,  2,  0,  2,  3,
 
-                            4,  6,  5,  4,  7,  6,
+                                       4,  6,  5,  4,  7,  6,
 
-                            8,  9,  10, 8,  10, 11,
+                                       8,  9,  10, 8,  10, 11,
 
-                            12, 14, 13, 12, 15, 14,
+                                       12, 14, 13, 12, 15, 14,
 
-                            16, 17, 18, 16, 18, 19,
+                                       16, 17, 18, 16, 18, 19,
 
-                            20, 22, 21, 20, 23, 22};
-        indexCount = _countof(indices);
-        const UINT indexBufferSize = sizeof(indices);
-        CD3DX12_HEAP_PROPERTIES heapProps(D3D12_HEAP_TYPE_UPLOAD);
-        auto desc = CD3DX12_RESOURCE_DESC::Buffer(indexBufferSize);
-        ThrowIfFailed(device->CreateCommittedResource(&heapProps, D3D12_HEAP_FLAG_NONE, &desc,
-                                                      D3D12_RESOURCE_STATE_GENERIC_READ, nullptr,
-                                                      IID_PPV_ARGS(&indexBuffer)));
-
-        UINT8* pIndexDataBegin;
-        CD3DX12_RANGE readRange(0, 0);
-        ThrowIfFailed(indexBuffer->Map(0, &readRange, reinterpret_cast<void**>(&pIndexDataBegin)));
-        memcpy(pIndexDataBegin, indices, sizeof(indices));
-        indexBuffer->Unmap(0, nullptr);
-
-        indexBufferView.BufferLocation = indexBuffer->GetGPUVirtualAddress();
-        indexBufferView.Format = DXGI_FORMAT_R16_UINT;
-        indexBufferView.SizeInBytes = indexBufferSize;
+                                       20, 22, 21, 20, 23, 22};
+        geometryManager.Init(device.Get(), commandList.Get());
+        geo = geometryManager.CreateGeometry(vertices, indices);
         ThrowIfFailed(commandList->Close());
         ID3D12CommandList* ppCommandLists[] = {commandList.Get()};
         commandQueue->ExecuteCommandLists(_countof(ppCommandLists), ppCommandLists);

@@ -1,4 +1,5 @@
 #pragma once
+#include "GeometryManager.hpp"
 #include "Win32Platform.hpp"
 #include <wrl.h>
 #include <dxgi1_6.h>
@@ -8,6 +9,7 @@
 #include <DirectXMath.h>
 #include <vector>
 #include "DescriptorManager.hpp"
+#include "GeometryManager.hpp"
 #include "Helper.hpp"
 class DX
 {
@@ -37,13 +39,8 @@ class DX
     ComPtr<ID3D12PipelineState> pipelineState;
     ComPtr<ID3D12Resource> depthStencilBuffer;
     ComPtr<ID3D12DescriptorHeap> dsvHeap;
-    // ComPtr<ID3D12DescriptorHeap> cusHeap;
     DescriptorManager descriptorManager;
-    //  UINT cusSize;
-    // ComPtr<ID3D12Resource> constantBuffer;
-    // ComPtr<ID3D12Resource> textureObject;
-    // ComPtr<ID3D12Resource> textureUploadHeap;
-    //    UINT8* pCbvDataBegin;
+    GeometryManager geometryManager;
     UINT dsvDescriptorSize;
     D3D12_CLEAR_VALUE depthStencilClearValue;
     BOOL useDepthStencil = TRUE;
@@ -51,11 +48,6 @@ class DX
     Microsoft::WRL::ComPtr<ID3D12InfoQueue> infoQueue;
 #endif
     UINT rtvDescriptorSize;
-    ComPtr<ID3D12Resource> vertexBuffer;
-    D3D12_VERTEX_BUFFER_VIEW vertexBufferView;
-    ComPtr<ID3D12Resource> indexBuffer;
-    D3D12_INDEX_BUFFER_VIEW indexBufferView;
-    UINT indexCount;
     UINT frameIndex;
     ComPtr<ID3D12Fence> fence;
     HANDLE fenceEvent;
@@ -63,12 +55,6 @@ class DX
     float aspectRatio = static_cast<float>(SCR_WIDTH) / static_cast<float>(SCR_HEIGHT);
     D3D12_VIEWPORT viewPort;
     D3D12_RECT scissorRect;
-    struct Vertex
-    {
-        DirectX::XMFLOAT3 pos;
-        DirectX::XMFLOAT4 color;
-        DirectX::XMFLOAT2 uv;
-    };
     struct alignas(256) SceneConstantBuffer
     {
         DirectX::XMMATRIX model;
@@ -79,6 +65,7 @@ class DX
     SceneConstantBuffer cbData;
     CB_INFO cbInfo;
     float rotationAngle;
+    Geometry geo;
     void LoadPipeline();
     void LoadAssets();
     void PopulateCommandList();

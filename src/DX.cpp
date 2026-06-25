@@ -1,6 +1,6 @@
 #include "DX.hpp"
 #include <Console.hpp>
-DX::DX() : cbData({}), rotationAngle(0.0f)
+DX::DX() : cbData({}), rotationAngle(0.0f), geo({})
 {
 }
 DX::~DX()
